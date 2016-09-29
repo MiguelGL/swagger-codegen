@@ -126,8 +126,7 @@ export class {{classname}} {
 {{/isBasic}}
 {{#isOAuth}}
         // oauth required
-        if (this.configuration.accessToken)
-        {
+        if (this.configuration.accessToken) {
             headers.set('Authorization', 'Bearer ' + this.configuration.accessToken);
         }
 {{/isOAuth}}
