@@ -1,6 +1,9 @@
 {{>licenseInfo}}
 {{#models}}
 {{#model}}
+
+/* tslint:disable:no-unused-variable member-ordering max-line-length */
+
 // noinspection ES6UnusedImports
 import * as models from './models';
 
@@ -29,6 +32,7 @@ export namespace {{classname}} {
 {{#vars}}
 {{#isEnum}}
     export enum {{enumName}} {
+    // noinspection JSUnusedGlobalSymbols
     {{#allowableValues}}
     {{#enumVars}}
         {{{name}}} = <any> {{{value}}}{{^-last}},{{/-last}}
