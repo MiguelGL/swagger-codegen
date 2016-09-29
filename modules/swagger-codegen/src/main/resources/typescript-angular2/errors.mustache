@@ -1,0 +1,35 @@
+import { Response } from '@angular/http';
+
+/* tslint:disable:no-unused-variable member-ordering max-line-length */
+
+export abstract class BaseResponseErrorException extends Error {
+
+    // noinspection JSUnusedGlobalSymbols, JSUnusedLocalSymbols
+    constructor(public response: Response, message = '') {
+        super(message);
+    }
+
+}
+
+export class RedirectResponseException extends BaseResponseErrorException {}
+export class ClientErrorResponseException extends BaseResponseErrorException {}
+export class ServerErrorResponseException extends BaseResponseErrorException {}
+export class UnknownErrorResponseException extends BaseResponseErrorException {}
+
+// noinspection JSUnusedGlobalSymbols
+export function buildExceptionFromResponse(response: Response): BaseResponseErrorException {
+    switch (true) {
+        case (response.status < 200):
+            return new UnknownErrorResponseException(response);
+        case (response.status < 300):
+            throw new Error(`Makes no sense to build a response error exception for ${response.status}`);
+        case (response.status < 400):
+            return new RedirectResponseException(response);
+        case (response.status < 500):
+            return new ClientErrorResponseException(response);
+        case (response.status < 600):
+            return new ServerErrorResponseException(response);
+        default:
+            return new UnknownErrorResponseException(response);
+    }
+}
