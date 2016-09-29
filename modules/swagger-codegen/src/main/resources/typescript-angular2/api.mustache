@@ -11,7 +11,7 @@ import * as models                                           from '../model/mode
 import { BASE_PATH }                                         from '../variables';
 import { Configuration }                                     from '../configuration';
 
-/* tslint:disable:no-unused-variable member-ordering */
+/* tslint:disable:no-unused-variable member-ordering max-line-length */
 
 {{#operations}}
 
@@ -26,7 +26,7 @@ export class {{classname}} {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -85,7 +85,6 @@ export class {{classname}} {
 
 {{#headers}}
         headers.set('{{baseName}}', String({{paramName}}));
-
 {{/headers}}
 
         // to determine the Content-Type header
@@ -101,7 +100,7 @@ export class {{classname}} {
             '{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}
             {{/produces}}
         ];
-        
+
 {{#authMethods}}
         // authentication ({{name}}) required
 {{#isApiKey}}
@@ -133,7 +132,7 @@ export class {{classname}} {
         }
 {{/isOAuth}}
 {{/authMethods}}
-            
+
 {{#hasFormParams}}
         headers.set('Content-Type', 'application/x-www-form-urlencoded');
 {{/hasFormParams}}
@@ -144,7 +143,7 @@ export class {{classname}} {
 
 {{#formParams}}
         if ({{paramName}} !== undefined) {
-            formParams.set('{{baseName}}', <any>{{paramName}}); 
+            formParams.set('{{baseName}}', <any>{{paramName}});
         }
 {{/formParams}}
 
