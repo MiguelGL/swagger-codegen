@@ -8,7 +8,7 @@ import { Observable }                                        from 'rxjs/Observab
 import 'rxjs/add/operator/map';
 
 import * as models                                           from '../model/models';
-import { BASE_PATH }                                         from '../variables';
+import { BASE_PATH, CONFIGURATION }                          from '../variables';
 import { Configuration }                                     from '../configuration';
 
 /* tslint:disable:no-unused-variable member-ordering max-line-length */
@@ -26,26 +26,30 @@ import { buildExceptionFromResponse }                        from './errors';
 // noinspection JSUnusedGlobalSymbols
 @Injectable()
 export class {{classname}} {
-    protected basePath = '{{basePath}}';
+    protected basePath;
     public defaultHeaders: Headers = new Headers();
-    public configuration: Configuration = new Configuration();
+    public configuration: Configuration;
 
     // noinspection JSUnusedGlobalSymbols, JSUnusedLocalSymbols
-    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() @Inject(CONFIGURATION) configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
+        } else {
+            this.basePath = '{{basePath}}';
         }
         if (configuration) {
             this.configuration = configuration;
+        } else {
+            this.configuration = new Configuration();
         }
     }
 
 {{#operation}}
     // noinspection JSUnusedGlobalSymbols, JSUnusedLocalSymbols
     /**
-     * {{summary}}
-     * {{notes}}
-     {{#allParams}}* @param {{paramName}} {{description}}
+     *{{#summary}} {{{summary}}}{{/summary}}
+     *{{#notes}} {{{notes}}}{{/notes}}
+     {{#allParams}}* @param {{paramName}}{{#description}} {{{description}}}{{/description}}
      {{/allParams}}* @param extraHttpRequestParams Extra HTTP request parameters
      */
     public {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}extraHttpRequestParams?: any): Observable<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}{}{{/returnType}}> {
