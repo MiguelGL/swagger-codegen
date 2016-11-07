@@ -2,7 +2,7 @@
 import { Inject, Injectable, Optional }                      from '@angular/core';
 import { Http, Headers, URLSearchParams }                    from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response }                                          from '@angular/http';
 
 import { Observable }                                        from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -43,16 +43,16 @@ export class {{classname}} {
             this.configuration = new Configuration();
         }
     }
-	
-	/**
-     * 
+
+    /**
+     *
      * Extends object by coping non-existing properties.
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB){
+            if (objB.hasOwnProperty(key)) {
                 objA[key] = objB[key];
             }
         }
@@ -190,7 +190,7 @@ export class {{classname}} {
 {{/hasFormParams}}
             search: queryParameters
         });
-        
+
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = this.extendObj(requestOptions, extraHttpRequestParams);
